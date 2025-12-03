@@ -1,6 +1,6 @@
-const express = require("express");
-const cors = require("cors");
-const { chromium } = require("playwright");
+import cors from "cors";
+import express, { type Request, type Response } from "express";
+import { type Browser, chromium } from "playwright";
 
 const app = express();
 const PORT = 5000;
@@ -8,16 +8,20 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 
-let browser;
+let browser: Browser;
 
 // Launch browser once when server starts
 (async () => {
-	browser = await chromium.launch();
-	console.log("Browser launched");
+	try {
+		browser = await chromium.launch();
+		console.log("Browser launched");
+	} catch (error) {
+		console.error("Failed to launch browser:", error);
+	}
 })();
 
-app.post("/screenshot", async (req, res) => {
-	const { url } = req.body;
+app.post("/screenshot", async (req: Request, res: Response) => {
+	const { url }: { url?: string } = req.body;
 
 	if (!url) return res.status(400).json({ error: "URL is required" });
 
@@ -32,10 +36,11 @@ app.post("/screenshot", async (req, res) => {
 		res.json({ screenshot: screenshotBase64 });
 	} catch (err) {
 		console.error(err);
-		res.status(500).json({ error: "Failed to take screenshot" });
+		return res.status(500).json({ error: "Failed to take screenshot" });
 	}
 });
 
+// Graceful shutdown
 process.on("exit", async () => {
 	if (browser) await browser.close();
 });
