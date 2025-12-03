@@ -34,13 +34,13 @@ app.post("/screenshot", async (req: Request, res: Response) => {
 
 		const screenshotBase64 = screenshotBuffer.toString("base64");
 		res.json({ screenshot: screenshotBase64 });
-	} catch (err) {
-		console.error(err);
+	} catch (error) {
+		console.error(error);
 		return res.status(500).json({ error: "Failed to take screenshot" });
 	}
 });
 
-// Graceful shutdown
+// shutdown
 process.on("exit", async () => {
 	if (browser) await browser.close();
 });
