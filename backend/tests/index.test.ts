@@ -3,7 +3,7 @@ import request from "supertest";
 // Mock playwright BEFORE loading the app
 jest.mock("playwright");
 
-import { app, initBrowser } from "./index";
+import { app, initBrowser } from "../index";
 
 beforeAll(async () => {
 	await initBrowser(); // Initialize mocked browser
