@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"start": "ts-node index.ts",
+		"test": "set NODE_ENV=test && set NODE_OPTIONS=--experimental-vm-modules && jest"
 	},
 	"keywords": [],
 	"author": "",
@@ -19,7 +20,12 @@
 	"devDependencies": {
 		"@types/cors": "^2.8.19",
 		"@types/express": "^5.0.6",
+		"@types/jest": "^30.0.0",
 		"@types/node": "^24.10.1",
+		"@types/supertest": "^6.0.3",
+		"jest": "^30.2.0",
+		"supertest": "^7.1.4",
+		"ts-jest": "^29.4.6",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.9.3"
 	}

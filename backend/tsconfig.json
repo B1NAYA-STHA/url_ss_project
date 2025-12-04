@@ -14,7 +14,7 @@
 		"verbatimModuleSyntax": false,
 		"strict": true,
 		"outDir": "dist",
-		"types": [],
+		"types": ["node", "jest"],
 		// For nodejs:
 		// "lib": ["esnext"],
 		// "types": ["node"],
